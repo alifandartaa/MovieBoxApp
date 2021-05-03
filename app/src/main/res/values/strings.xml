@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MovieBoxApp</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="title_tvshow">Tv Show</string>
+    <string name="title_movies">Movies</string>
+    <string name="title">Title</string>
+    <string name="desc">Description</string>
+    <string name="status">status</string>
+    <string name="release_date">release date</string>
+    <string name="tagline">tagline</string>
+    <string name="value_status">value status</string>
+    <string name="value_release">value release</string>
+    <string name="value_tagline">value tagline</string>
+    <string name="overview">overview</string>
+    <string name="value_overview">value overview</string>
+</resources>
