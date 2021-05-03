@@ -11,7 +11,7 @@ import com.example.movieboxapp.ui.detail.DetailActivity
 
 
 class MoviesAdapter :
-        RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+    RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     companion object {
         const val EXTRA_TYPE = "EXTRA_TYPE"
@@ -28,14 +28,15 @@ class MoviesAdapter :
         this.listMovies.addAll(movies)
     }
 
-    class MovieViewHolder(private val binding: ItemMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MovieViewHolder(private val binding: ItemMoviesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             with(binding) {
                 tvItemTitle.text = movie.title
                 tvItemDesc.text = movie.description
                 Glide.with(itemView.context)
-                        .load(IMAGE_URL + movie.imagePath)
-                        .into(imgPoster)
+                    .load(IMAGE_URL + movie.imagePath)
+                    .into(imgPoster)
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(EXTRA_ID, movie.movieId)
@@ -47,7 +48,8 @@ class MoviesAdapter :
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemMoviesBinding = ItemMoviesBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val itemMoviesBinding =
+            ItemMoviesBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return MovieViewHolder(itemMoviesBinding)
     }
 

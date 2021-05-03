@@ -20,20 +20,21 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
     private var listTvshow = ArrayList<TvShowEntity>()
 
-    fun setTvshows(tvshows : List<TvShowEntity>?){
-        if(tvshows == null) return
+    fun setTvshows(tvshows: List<TvShowEntity>?) {
+        if (tvshows == null) return
         this.listTvshow.clear()
         this.listTvshow.addAll(tvshows)
     }
 
-    class TvShowViewHolder(private val binding: ItemTvshowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TvShowViewHolder(private val binding: ItemTvshowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(tvshow: TvShowEntity) {
-            with(binding){
+            with(binding) {
                 tvItemTitle.text = tvshow.title
                 tvItemDesc.text = tvshow.description
                 Glide.with(itemView.context)
-                        .load(IMAGE_URL + tvshow.imagePath)
-                        .into(imgPoster)
+                    .load(IMAGE_URL + tvshow.imagePath)
+                    .into(imgPoster)
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(EXTRA_ID, tvshow.tvshowId)
@@ -46,8 +47,12 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowAdapter.TvShowViewHolder {
-        val itemTvshowBinding = ItemTvshowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TvShowAdapter.TvShowViewHolder {
+        val itemTvshowBinding =
+            ItemTvshowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowViewHolder(itemTvshowBinding)
     }
 

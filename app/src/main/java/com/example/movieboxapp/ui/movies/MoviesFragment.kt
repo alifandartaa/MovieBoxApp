@@ -18,9 +18,9 @@ class MoviesFragment : Fragment() {
     private var listMovie: ArrayList<MovieEntity> = arrayListOf()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         fragmentMoviesBinding = FragmentMoviesBinding.inflate(layoutInflater, container, false)
         return fragmentMoviesBinding.root
@@ -60,7 +60,7 @@ class MoviesFragment : Fragment() {
         }
     }
 
-    fun getListMovie() : List<MovieEntity>{
+    fun getListMovie(): List<MovieEntity> {
         return listMovie
     }
 }

@@ -42,8 +42,8 @@ class DetailActivity : AppCompatActivity() {
                     activityDetailBinding.detailTagLineValue.text = detailMovie.tagline
                     activityDetailBinding.detailOverviewValue.text = detailMovie.description
                     Glide.with(baseContext)
-                            .load(MoviesAdapter.IMAGE_URL + detailMovie.imagePath)
-                            .into(activityDetailBinding.imgPoster)
+                        .load(MoviesAdapter.IMAGE_URL + detailMovie.imagePath)
+                        .into(activityDetailBinding.imgPoster)
                 }
             })
         }
@@ -59,8 +59,8 @@ class DetailActivity : AppCompatActivity() {
                     activityDetailBinding.detailTagLineValue.text = detailTvshow.tagline
                     activityDetailBinding.detailOverviewValue.text = detailTvshow.description
                     Glide.with(baseContext)
-                            .load(MoviesAdapter.IMAGE_URL + detailTvshow.imagePath)
-                            .into(activityDetailBinding.imgPoster)
+                        .load(MoviesAdapter.IMAGE_URL + detailTvshow.imagePath)
+                        .into(activityDetailBinding.imgPoster)
                 }
             })
         }

@@ -32,8 +32,7 @@ class MovieTvRepositoryTest {
 
     @Test
     fun getAllMovies() {
-        doAnswer {
-            invocation ->
+        doAnswer { invocation ->
             (invocation.arguments[0] as RemoteDataSource.GetAllMoviesCallback)
                 .getAllMoviesAsync(TestData.generateDataMovie())
             null
@@ -46,8 +45,7 @@ class MovieTvRepositoryTest {
 
     @Test
     fun getAllTvshows() {
-        doAnswer {
-            invocation ->
+        doAnswer { invocation ->
             (invocation.arguments[0] as RemoteDataSource.GetAllTvshowCallback)
                 .getAllTvshowAsync(TestData.generateDataTvshow())
             null
@@ -60,13 +58,13 @@ class MovieTvRepositoryTest {
 
     @Test
     fun getDetailMovie() {
-        doAnswer {
-            invocation ->
+        doAnswer { invocation ->
             (invocation.arguments[0] as RemoteDataSource.GetDetailMovieCallback)
                 .getDetailMovieCallback(TestData.generateRemoteDetailMovieTest())
             null
-        }.`when`(remote).getMovieDetail(any(),eq(movieId))
-        val detailMovieEntity = LiveTestDataUtil.getValue(movieTvRepositoryTest.getDetailMovie(movieId))
+        }.`when`(remote).getMovieDetail(any(), eq(movieId))
+        val detailMovieEntity =
+            LiveTestDataUtil.getValue(movieTvRepositoryTest.getDetailMovie(movieId))
         verify(remote).getMovieDetail(any(), eq(movieId))
         assertNotNull(detailMovieEntity)
         assertEquals(detailMovie, detailMovieEntity)
@@ -74,13 +72,13 @@ class MovieTvRepositoryTest {
 
     @Test
     fun getDetailTvshow() {
-        doAnswer {
-            invocation ->
+        doAnswer { invocation ->
             (invocation.arguments[0] as RemoteDataSource.GetDetailTvshowCallback)
                 .getDetailTvshowCallback(TestData.generateRemoteDetailTvshowTest())
             null
-        }.`when`(remote).getTvshowDetail(any(),eq(tvshowId))
-        val detailTvshowEntity = LiveTestDataUtil.getValue(movieTvRepositoryTest.getDetailTvshow(tvshowId))
+        }.`when`(remote).getTvshowDetail(any(), eq(tvshowId))
+        val detailTvshowEntity =
+            LiveTestDataUtil.getValue(movieTvRepositoryTest.getDetailTvshow(tvshowId))
         verify(remote).getTvshowDetail(any(), eq(tvshowId))
         assertNotNull(detailTvshowEntity)
         assertEquals(detailTvshow, detailTvshowEntity)

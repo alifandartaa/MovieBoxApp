@@ -21,7 +21,7 @@ object TestData {
         return movies
     }
 
-    fun generateDataTvshowTest(): List<TvShowEntity>{
+    fun generateDataTvshowTest(): List<TvShowEntity> {
         val tvshows = ArrayList<TvShowEntity>()
         for (i in 1..20) {
             tvshows.add(
@@ -106,7 +106,7 @@ object TestData {
         return results
     }
 
-    fun generateRemoteDetailMovieTest(): ResponseDetailMovie{
+    fun generateRemoteDetailMovieTest(): ResponseDetailMovie {
         return ResponseDetailMovie(
             "Mortal Kombat",
             460465,
@@ -118,7 +118,7 @@ object TestData {
         )
     }
 
-    fun generateRemoteDetailTvshowTest(): ResponseDetailTvshow{
+    fun generateRemoteDetailTvshowTest(): ResponseDetailTvshow {
         return ResponseDetailTvshow(
             88396,
             "2021-03-19",

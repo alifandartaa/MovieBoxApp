@@ -39,7 +39,10 @@ class RemoteDataSource {
     fun getAllTvshow(callback: GetAllTvshowCallback) {
         EspressoIdlingResource.increment()
         ApiClient.getApiInterface().getTvshows(api_key).enqueue(object : Callback<ResponseTvshow> {
-            override fun onResponse(call: Call<ResponseTvshow>, response: Response<ResponseTvshow>) {
+            override fun onResponse(
+                call: Call<ResponseTvshow>,
+                response: Response<ResponseTvshow>
+            ) {
                 callback.getAllTvshowAsync(response.body()?.results)
                 EspressoIdlingResource.decrement()
             }
@@ -52,30 +55,38 @@ class RemoteDataSource {
 
     fun getMovieDetail(callback: GetDetailMovieCallback, id: Int) {
         EspressoIdlingResource.increment()
-        ApiClient.getApiInterface().getDetailMovie(id, api_key).enqueue(object : Callback<ResponseDetailMovie> {
-            override fun onResponse(call: Call<ResponseDetailMovie>, responseMovie: Response<ResponseDetailMovie>) {
-                callback.getDetailMovieCallback(responseMovie.body())
-                EspressoIdlingResource.decrement()
-            }
+        ApiClient.getApiInterface().getDetailMovie(id, api_key)
+            .enqueue(object : Callback<ResponseDetailMovie> {
+                override fun onResponse(
+                    call: Call<ResponseDetailMovie>,
+                    responseMovie: Response<ResponseDetailMovie>
+                ) {
+                    callback.getDetailMovieCallback(responseMovie.body())
+                    EspressoIdlingResource.decrement()
+                }
 
-            override fun onFailure(call: Call<ResponseDetailMovie>, t: Throwable) {
-                Log.d(this@RemoteDataSource.toString(), "get error : ${t.message}")
-            }
-        })
+                override fun onFailure(call: Call<ResponseDetailMovie>, t: Throwable) {
+                    Log.d(this@RemoteDataSource.toString(), "get error : ${t.message}")
+                }
+            })
     }
 
     fun getTvshowDetail(callback: GetDetailTvshowCallback, id: Int) {
         EspressoIdlingResource.increment()
-        ApiClient.getApiInterface().getDetailTvshow(id, api_key).enqueue(object : Callback<ResponseDetailTvshow> {
-            override fun onResponse(call: Call<ResponseDetailTvshow>, response: Response<ResponseDetailTvshow>) {
-                callback.getDetailTvshowCallback(response.body())
-                EspressoIdlingResource.decrement()
-            }
+        ApiClient.getApiInterface().getDetailTvshow(id, api_key)
+            .enqueue(object : Callback<ResponseDetailTvshow> {
+                override fun onResponse(
+                    call: Call<ResponseDetailTvshow>,
+                    response: Response<ResponseDetailTvshow>
+                ) {
+                    callback.getDetailTvshowCallback(response.body())
+                    EspressoIdlingResource.decrement()
+                }
 
-            override fun onFailure(call: Call<ResponseDetailTvshow>, t: Throwable) {
-                Log.d(this@RemoteDataSource.toString(), "get error : ${t.message}")
-            }
-        })
+                override fun onFailure(call: Call<ResponseDetailTvshow>, t: Throwable) {
+                    Log.d(this@RemoteDataSource.toString(), "get error : ${t.message}")
+                }
+            })
     }
 
     interface GetAllMoviesCallback {

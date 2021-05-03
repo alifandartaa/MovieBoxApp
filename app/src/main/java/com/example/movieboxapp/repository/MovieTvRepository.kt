@@ -12,16 +12,17 @@ import com.example.movieboxapp.data.source.remote.response.DataTvshow
 import com.example.movieboxapp.data.source.remote.response.ResponseDetailMovie
 import com.example.movieboxapp.data.source.remote.response.ResponseDetailTvshow
 
-class MovieTvRepository private constructor(private val remoteDataSource: RemoteDataSource) : MoviesTvDataSource {
+class MovieTvRepository private constructor(private val remoteDataSource: RemoteDataSource) :
+    MoviesTvDataSource {
 
 
     companion object {
         @Volatile
         private var instance: MovieTvRepository? = null
         fun getInstance(remoteData: RemoteDataSource): MovieTvRepository = instance
-                ?: synchronized(this) {
-                    MovieTvRepository(remoteData).apply { instance = this }
-                }
+            ?: synchronized(this) {
+                MovieTvRepository(remoteData).apply { instance = this }
+            }
     }
 
     override fun getAllMovies(): LiveData<List<MovieEntity>> {
@@ -33,10 +34,10 @@ class MovieTvRepository private constructor(private val remoteDataSource: Remote
                     for (response in movies) {
                         val movie = response.let {
                             MovieEntity(
-                                    it.id,
-                                    it.title,
-                                    it.overview,
-                                    it.posterPath
+                                it.id,
+                                it.title,
+                                it.overview,
+                                it.posterPath
                             )
                         }
                         moviesList.add(movie)
@@ -57,10 +58,10 @@ class MovieTvRepository private constructor(private val remoteDataSource: Remote
                     for (response in tvshows) {
                         val tvshow = response.let {
                             TvShowEntity(
-                                    it.id,
-                                    it.name,
-                                    it.overview,
-                                    it.posterPath
+                                it.id,
+                                it.name,
+                                it.overview,
+                                it.posterPath
                             )
                         }
                         tvshowsList.add(tvshow)
@@ -79,13 +80,14 @@ class MovieTvRepository private constructor(private val remoteDataSource: Remote
             override fun getDetailMovieCallback(movie: ResponseDetailMovie?) {
                 val movieDetail = movie?.let {
                     DetailEntity(
-                            movie.id,
-                            movie.title,
-                            movie.overview,
-                            movie.posterPath,
-                            movie.releaseDate,
-                            movie.status,
-                            movie.tagline)
+                        movie.id,
+                        movie.title,
+                        movie.overview,
+                        movie.posterPath,
+                        movie.releaseDate,
+                        movie.status,
+                        movie.tagline
+                    )
                 }
                 movieDetailResult.postValue(movieDetail!!)
             }
@@ -99,13 +101,13 @@ class MovieTvRepository private constructor(private val remoteDataSource: Remote
             override fun getDetailTvshowCallback(tvshow: ResponseDetailTvshow?) {
                 val tvshowDetail = tvshow?.let {
                     DetailEntity(
-                           tvshow.id,
-                            tvshow.name,
-                            tvshow.overview,
-                            tvshow.posterPath,
-                            tvshow.firstAirDate,
-                            tvshow.status,
-                            tvshow.tagline
+                        tvshow.id,
+                        tvshow.name,
+                        tvshow.overview,
+                        tvshow.posterPath,
+                        tvshow.firstAirDate,
+                        tvshow.status,
+                        tvshow.tagline
                     )
                 }
                 tvshowDetailResult.postValue(tvshowDetail!!)

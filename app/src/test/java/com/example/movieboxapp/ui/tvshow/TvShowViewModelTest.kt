@@ -33,7 +33,7 @@ class TvShowViewModelTest {
     private lateinit var observer: Observer<List<TvShowEntity>>
 
     @Before
-    fun setUp(){
+    fun setUp() {
         viewModel = TvShowViewModel(movieTvRepository)
     }
 

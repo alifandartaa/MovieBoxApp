@@ -10,7 +10,7 @@ import com.example.movieboxapp.ui.movies.MoviesViewModel
 import com.example.movieboxapp.ui.tvshow.TvShowViewModel
 
 class MoviesVMFactory private constructor(private val mMovieTvRepository: MovieTvRepository) :
-        ViewModelProvider.NewInstanceFactory() {
+    ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         @Volatile

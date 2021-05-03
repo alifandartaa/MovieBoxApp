@@ -20,9 +20,9 @@ class TvShowFragment : Fragment() {
     private lateinit var fragmentTvshowBinding: FragmentTvshowBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         fragmentTvshowBinding = FragmentTvshowBinding.inflate(layoutInflater, container, false)
         return fragmentTvshowBinding.root
@@ -30,7 +30,7 @@ class TvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(activity != null){
+        if (activity != null) {
             showLoading(true)
             val factory = MoviesVMFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
@@ -46,7 +46,7 @@ class TvShowFragment : Fragment() {
             tvShowAdapter.notifyDataSetChanged()
         })
 
-        with(fragmentTvshowBinding.rvTvshow){
+        with(fragmentTvshowBinding.rvTvshow) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowAdapter

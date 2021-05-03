@@ -18,8 +18,14 @@ interface ApiInterface {
     fun getTvshows(@Query("api_key") api: String): Call<ResponseTvshow>
 
     @GET("movie/{movie_id}")
-    fun getDetailMovie(@Path("movie_id") movie_id: Int, @Query("api_key") api: String): Call<ResponseDetailMovie>
+    fun getDetailMovie(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api: String
+    ): Call<ResponseDetailMovie>
 
     @GET("tv/{tv_id}")
-    fun getDetailTvshow(@Path("tv_id") tv_id: Int, @Query("api_key") api: String): Call<ResponseDetailTvshow>
+    fun getDetailTvshow(
+        @Path("tv_id") tv_id: Int,
+        @Query("api_key") api: String
+    ): Call<ResponseDetailTvshow>
 }

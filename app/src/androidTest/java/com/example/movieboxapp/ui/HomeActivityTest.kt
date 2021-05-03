@@ -28,35 +28,53 @@ class HomeActivityTest {
     var activityRule = ActivityTestRule(HomeActivity::class.java)
 
     @Test
-    fun loadPopularMovies(){
+    fun loadPopularMovies() {
         launchFragmentInContainer<MoviesFragment>()
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dataMoviesTest.size))
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dataMoviesTest.size
+            )
+        )
     }
 
     @Test
-    fun loadPopularTvshow(){
+    fun loadPopularTvshow() {
         launchFragmentInContainer<TvShowFragment>()
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dataTvshowTest.size))
+        onView(withId(R.id.rv_tvshow)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dataTvshowTest.size
+            )
+        )
     }
 
     @Test
-    fun loadDetailMovie(){
+    fun loadDetailMovie() {
         launchFragmentInContainer<MoviesFragment>()
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         delayTwoSecond()
-        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(withId(R.id.detail_title)).check(matches(isDisplayed()))
         onView(withId(R.id.detail_title)).check(matches(withText(dataMoviesTest[0].title.toString())))
     }
 
     @Test
-    fun loadDetailTvshow(){
+    fun loadDetailTvshow() {
         launchFragmentInContainer<TvShowFragment>()
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
         delayTwoSecond()
-        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_tvshow)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(withId(R.id.detail_title)).check(matches(isDisplayed()))
         onView(withId(R.id.detail_title)).check(matches(withText(dataTvshowTest[0].title.toString())))
     }
