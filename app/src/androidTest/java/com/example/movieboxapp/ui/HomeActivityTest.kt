@@ -2,7 +2,9 @@ package com.example.movieboxapp.ui
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -11,6 +13,7 @@ import androidx.test.rule.ActivityTestRule
 import com.example.movieboxapp.R
 import com.example.movieboxapp.ui.movies.MoviesFragment
 import com.example.movieboxapp.ui.tvshow.TvShowFragment
+import com.example.movieboxapp.utils.retrofit.EspressoIdlingResource
 import com.example.movieboxapp.utils.retrofit.TestData
 import org.junit.After
 import org.junit.Before
@@ -26,6 +29,17 @@ class HomeActivityTest {
 
     @get:Rule
     var activityRule = ActivityTestRule(HomeActivity::class.java)
+
+    @Before
+    fun setUp(){
+        ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
 
     @Test
     fun loadPopularMovies() {
@@ -53,7 +67,7 @@ class HomeActivityTest {
     fun loadDetailMovie() {
         launchFragmentInContainer<MoviesFragment>()
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        delayTwoSecond()
+
         onView(withId(R.id.rv_movie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -68,7 +82,7 @@ class HomeActivityTest {
     fun loadDetailTvshow() {
         launchFragmentInContainer<TvShowFragment>()
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
-        delayTwoSecond()
+
         onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
