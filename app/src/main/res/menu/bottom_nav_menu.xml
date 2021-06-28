@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_movies_black_24dp"
         android:title="@string/title_movies" />
 
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/ic_bookmarked_white_24dp"
+        android:title="@string/bookmark" />
+
 </menu>

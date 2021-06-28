@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieboxapp.data.source.entity.MovieEntity
-import com.example.movieboxapp.data.source.remote.response.DataMovie
 import com.example.movieboxapp.databinding.FragmentMoviesBinding
 import com.example.movieboxapp.viewmodel.MoviesVMFactory
+import com.example.movieboxapp.vo.Status
 
 class MoviesFragment : Fragment() {
 
@@ -39,10 +39,19 @@ class MoviesFragment : Fragment() {
     private fun loadPopularMovies(viewModel: MoviesViewModel) {
         val moviesAdapter = MoviesAdapter()
         viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
-            moviesAdapter.setMovies(movies)
-            listMovie.addAll(movies)
-            showLoading(false)
-            moviesAdapter.notifyDataSetChanged()
+            if (movies != null) {
+                when (movies.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        moviesAdapter.setMovies(movies.data)
+                        moviesAdapter.notifyDataSetChanged()
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                    }
+                }
+            }
         })
 
         with(fragmentMoviesBinding.rvMovie) {

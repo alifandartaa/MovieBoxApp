@@ -49,4 +49,6 @@ ext{
 
     retrofitVersion = '2.9.0'
     glideVersion = '4.11.0'
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.2.5'
 }

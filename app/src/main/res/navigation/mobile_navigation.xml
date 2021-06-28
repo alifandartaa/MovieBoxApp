@@ -16,4 +16,10 @@
         android:name="com.example.movieboxapp.ui.movies.MoviesFragment"
         android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies" />
+
+    <fragment
+        android:id="@+id/navigation_bookmark"
+        android:name="com.example.movieboxapp.ui.bookmark.BookmarkFragment"
+        android:label="@string/bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 </navigation>

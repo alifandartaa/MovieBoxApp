@@ -3,8 +3,9 @@ package com.example.movieboxapp.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieboxapp.repository.MovieTvRepository
 import com.example.movieboxapp.di.Injection
+import com.example.movieboxapp.repository.MovieTvRepository
+import com.example.movieboxapp.ui.bookmark.BookmarkViewModel
 import com.example.movieboxapp.ui.detail.DetailViewModel
 import com.example.movieboxapp.ui.movies.MoviesViewModel
 import com.example.movieboxapp.ui.tvshow.TvShowViewModel
@@ -33,6 +34,9 @@ class MoviesVMFactory private constructor(private val mMovieTvRepository: MovieT
             }
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
                 TvShowViewModel(mMovieTvRepository) as T
+            }
+            modelClass.isAssignableFrom(BookmarkViewModel::class.java) -> {
+                BookmarkViewModel(mMovieTvRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -56,6 +57,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //testing
     testImplementation "junit:junit:$junitVersion"
@@ -75,4 +77,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt 'androidx.room:room-compiler:2.2.6'
 }

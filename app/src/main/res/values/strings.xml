@@ -13,4 +13,8 @@
     <string name="value_tagline">value tagline</string>
     <string name="overview">overview</string>
     <string name="value_overview">value overview</string>
+    <string name="menu_bookmark">Favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bookmark">Bookmark</string>
 </resources>
