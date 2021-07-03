@@ -1,4 +1,4 @@
-package com.example.movieboxapp.utils.retrofit
+package com.example.movieboxapp.data.source.remote
 
 import com.example.movieboxapp.data.source.remote.response.ResponseDetailMovie
 import com.example.movieboxapp.data.source.remote.response.ResponseDetailTvshow

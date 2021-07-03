@@ -1,6 +1,7 @@
 package com.example.movieboxapp.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.example.movieboxapp.data.source.entity.DetailEntity
 import com.example.movieboxapp.data.source.entity.MovieEntity
 import com.example.movieboxapp.data.source.entity.TvShowEntity
@@ -14,12 +15,12 @@ class LocalDataSource private constructor(private val mMovieTvDao: MovieTvDao) {
             INSTANCE ?: LocalDataSource(movieTvDao)
     }
 
-    fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieTvDao.getMovies()
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mMovieTvDao.getMovies()
 
     fun getDetailMovie(movieId: String): LiveData<DetailEntity> =
         mMovieTvDao.getDetailMovieById(movieId)
 
-    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mMovieTvDao.getTvShows()
+    fun getAllTvShows(): DataSource.Factory<Int, TvShowEntity> = mMovieTvDao.getTvShows()
 
     fun getDetailTvShow(tvShowId: String): LiveData<DetailEntity> =
         mMovieTvDao.getDetailTvShowById(tvShowId)
@@ -30,7 +31,7 @@ class LocalDataSource private constructor(private val mMovieTvDao: MovieTvDao) {
 
     fun insertDetail(detail: DetailEntity) = mMovieTvDao.insertDetail(detail)
 
-    fun getBookmarked(): LiveData<List<DetailEntity>> = mMovieTvDao.getBookmarked()
+    fun getBookmarked(): DataSource.Factory<Int, DetailEntity> = mMovieTvDao.getBookmarked()
 
     fun setBookmark(detailEntity: DetailEntity, newState: Boolean) {
         detailEntity.bookmarked = newState

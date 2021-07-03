@@ -7,23 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.movieboxapp.data.source.entity.TvShowEntity
 import com.example.movieboxapp.databinding.FragmentTvshowBinding
 import com.example.movieboxapp.viewmodel.MoviesVMFactory
 import com.example.movieboxapp.vo.Status
 
 class TvShowFragment : Fragment() {
 
-    private lateinit var fragmentTvshowBinding: FragmentTvshowBinding
-    private var listTvshow: ArrayList<TvShowEntity> = arrayListOf()
+    private var _fragmentTvShowBinding: FragmentTvshowBinding? = null
+    private val binding get() = _fragmentTvShowBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        fragmentTvshowBinding = FragmentTvshowBinding.inflate(layoutInflater, container, false)
-        return fragmentTvshowBinding.root
+    ): View? {
+        _fragmentTvShowBinding = FragmentTvshowBinding.inflate(layoutInflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,9 +42,8 @@ class TvShowFragment : Fragment() {
                 when (tvshows.status) {
                     Status.LOADING -> showLoading(true)
                     Status.SUCCESS -> {
-                        tvShowAdapter.setTvshows(tvshows.data)
+                        tvShowAdapter.submitList(tvshows.data)
                         showLoading(false)
-//                        listTvshow.addAll(tvshows)
                         tvShowAdapter.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
@@ -57,18 +55,20 @@ class TvShowFragment : Fragment() {
 
         })
 
-        with(fragmentTvshowBinding.rvTvshow) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = tvShowAdapter
+        binding?.let {
+            with(it.rvTvshow) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = tvShowAdapter
+            }
         }
     }
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            fragmentTvshowBinding.progressBar.visibility = View.VISIBLE
+            binding?.progressBar?.visibility = View.VISIBLE
         } else {
-            fragmentTvshowBinding.progressBar.visibility = View.GONE
+            binding?.progressBar?.visibility = View.GONE
         }
     }
 }

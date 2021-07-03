@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -17,8 +18,6 @@ import com.example.movieboxapp.utils.retrofit.EspressoIdlingResource
 import com.example.movieboxapp.utils.retrofit.TestData
 import org.junit.After
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
@@ -93,11 +92,17 @@ class HomeActivityTest {
         onView(withId(R.id.detail_title)).check(matches(withText(dataTvshowTest[0].title.toString())))
     }
 
-    private fun delayTwoSecond() {
-        try {
-            Thread.sleep(2000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
+    @Test
+    fun loadBookmarks() {
+        onView(withId(R.id.rv_tvshow)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.action_bookmark)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(withId(R.id.navigation_bookmark)).perform(click())
+        onView(withId(R.id.rv_bookmark)).check(matches(isDisplayed()))
     }
 }

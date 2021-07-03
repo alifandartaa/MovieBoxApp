@@ -13,8 +13,13 @@
     <string name="value_tagline">value tagline</string>
     <string name="overview">overview</string>
     <string name="value_overview">value overview</string>
-    <string name="menu_bookmark">Favorite</string>
+    <string name="menu_bookmark">Bookmark</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bookmark">Bookmark</string>
+    <string name="message_ok">OK</string>
+    <string name="message_undo">undo</string>
+    <string name="detail_image">Detail Image</string>
+    <string name="image_bookmark_item">Image Bookmark Item</string>
+    <string name="image_movies_item">Image Movies Item</string>
+    <string name="image_tvshow_item">Image TvShow Item</string>
 </resources>

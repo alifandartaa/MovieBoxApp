@@ -3,14 +3,15 @@ package com.example.movieboxapp.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.example.movieboxapp.data.source.entity.MovieEntity
 import com.example.movieboxapp.repository.MovieTvRepository
-import com.example.movieboxapp.utils.retrofit.TestData
+import com.example.movieboxapp.vo.Resource
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -29,7 +30,10 @@ class MoviesViewModelTest {
     private lateinit var movieTvRepository: MovieTvRepository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieEntity>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -38,17 +42,18 @@ class MoviesViewModelTest {
 
     @Test
     fun getMovies() {
-        val dataTestMovies = TestData.generateDataMoviesTest()
-        val movies = MutableLiveData<List<MovieEntity>>()
-        movies.value = dataTestMovies
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(5)
+        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
+        movies.value = dummyMovies
 
         `when`(movieTvRepository.getAllMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getMovies().value
+        val movieEntities = viewModel.getMovies().value?.data
         verify(movieTvRepository).getAllMovies()
         assertNotNull(movieEntities)
-        assertEquals(20, movieEntities!!.size)
+        assertEquals(5, movieEntities!!.size)
 
         viewModel.getMovies().observeForever(observer)
-        verify(observer).onChanged(dataTestMovies)
+        verify(observer).onChanged(dummyMovies)
     }
 }

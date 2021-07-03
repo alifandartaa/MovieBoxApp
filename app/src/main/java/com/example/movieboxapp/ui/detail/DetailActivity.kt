@@ -1,7 +1,6 @@
 package com.example.movieboxapp.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +17,9 @@ import com.example.movieboxapp.vo.Status
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var activityDetailBinding: ActivityDetailBinding
+    private var _activityDetailBinding: ActivityDetailBinding? = null
+    private val binding get() = _activityDetailBinding
+
     private var menu: Menu? = null
     private lateinit var viewModel: DetailViewModel
     private var typeEntity: String? = ""
@@ -33,8 +34,8 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(activityDetailBinding.root)
+        _activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         val idEntity = intent.getIntExtra(EXTRA_ID, 0)
         typeEntity = intent.getStringExtra(EXTRA_TYPE)
@@ -43,41 +44,27 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         if (typeEntity.equals(MOVIE_TYPE)) {
-//            activityDetailBinding.progressBar.visibility = View.VISIBLE
             viewModel.selectId(idEntity)
-//            viewModel.getDetailMovie()?.observe(this, { detailMovie ->
-//                activityDetailBinding.progressBar.visibility = View.GONE
-//                if (detailMovie != null) {
-//                    activityDetailBinding.detailTitle.text = detailMovie.data?.title
-//                    activityDetailBinding.detailStatusValue.text = detailMovie.data?.status
-//                    activityDetailBinding.detailReleaseValue.text = detailMovie.data?.releaseDate
-//                    activityDetailBinding.detailTagLineValue.text = detailMovie.data?.tagline
-//                    activityDetailBinding.detailOverviewValue.text = detailMovie.data?.description
-//                    Glide.with(baseContext)
-//                        .load(MoviesAdapter.IMAGE_URL + detailMovie.data?.imagePath)
-//                        .into(activityDetailBinding.imgPoster)
-//                }
-//            })
             viewModel.detailMovie.observe(this, { detailMovie ->
                 if (detailMovie != null) {
                     when (detailMovie.status) {
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                        Status.LOADING -> binding?.progressBar?.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> if (detailMovie.data != null) {
-                            activityDetailBinding.progressBar.visibility = View.GONE
-                            activityDetailBinding.detailTitle.text = detailMovie.data.title
-                            activityDetailBinding.detailStatusValue.text = detailMovie.data.status
-                            activityDetailBinding.detailReleaseValue.text =
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.detailTitle?.text = detailMovie.data.title
+                            binding?.tvDetailStatusValue?.text = detailMovie.data.status
+                            binding?.tvDetailReleaseValue?.text =
                                 detailMovie.data.releaseDate
-                            activityDetailBinding.detailTagLineValue.text = detailMovie.data.tagline
-                            activityDetailBinding.detailOverviewValue.text =
+                            binding?.tvDetailTaglineValue?.text = detailMovie.data.tagline
+                            binding?.tvDetailOverviewValue?.text =
                                 detailMovie.data.description
                             Glide.with(baseContext)
                                 .load(MoviesAdapter.IMAGE_URL + detailMovie.data.imagePath)
-                                .into(activityDetailBinding.imgPoster)
+                                .into(binding?.imgPoster!!)
                         }
                         Status.ERROR -> {
-                            activityDetailBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             Toast.makeText(
                                 applicationContext,
                                 "Terjadi kesalahan",
@@ -89,29 +76,28 @@ class DetailActivity : AppCompatActivity() {
             })
         }
         if (typeEntity.equals(TV_SHOW_TYPE)) {
-//            activityDetailBinding.progressBar.visibility = View.VISIBLE
             viewModel.selectId(idEntity)
             viewModel.detailTvShow.observe(this, { detailTvShow ->
                 if (detailTvShow != null) {
                     when (detailTvShow.status) {
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                        Status.LOADING -> binding?.progressBar?.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> if (detailTvShow.data != null) {
-                            activityDetailBinding.progressBar.visibility = View.GONE
-                            activityDetailBinding.detailTitle.text = detailTvShow.data.title
-                            activityDetailBinding.detailStatusValue.text = detailTvShow.data.status
-                            activityDetailBinding.detailReleaseValue.text =
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.detailTitle?.text = detailTvShow.data.title
+                            binding?.tvDetailStatusValue?.text = detailTvShow.data.status
+                            binding?.tvDetailReleaseValue?.text =
                                 detailTvShow.data.releaseDate
-                            activityDetailBinding.detailTagLineValue.text =
+                            binding?.tvDetailTaglineValue?.text =
                                 detailTvShow.data.tagline
-                            activityDetailBinding.detailOverviewValue.text =
+                            binding?.tvDetailOverviewValue?.text =
                                 detailTvShow.data.description
                             Glide.with(baseContext)
                                 .load(MoviesAdapter.IMAGE_URL + detailTvShow.data.imagePath)
-                                .into(activityDetailBinding.imgPoster)
+                                .into(binding?.imgPoster!!)
                         }
                         Status.ERROR -> {
-                            activityDetailBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             Toast.makeText(
                                 applicationContext,
                                 "Terjadi kesalahan",
@@ -121,20 +107,6 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
             })
-//            viewModel.getDetailTvshow()?.observe(this, { detailTvshow ->
-//                activityDetailBinding.progressBar.visibility = View.GONE
-//                if (detailTvshow != null) {
-//                    activityDetailBinding.detailTitle.text = detailTvshow.data?.title
-//                    activityDetailBinding.detailStatusValue.text = detailTvshow.data?.status
-//                    activityDetailBinding.detailReleaseValue.text = detailTvshow.data?.releaseDate
-//                    activityDetailBinding.detailTagLineValue.text = detailTvshow.data?.tagline
-//                    activityDetailBinding.detailOverviewValue.text = detailTvshow.data?.description
-//                    Glide.with(baseContext)
-//                        .load(MoviesAdapter.IMAGE_URL + detailTvshow.data?.imagePath)
-//                        .into(activityDetailBinding.imgPoster)
-//                }
-//            })
-
         }
 
     }
@@ -146,17 +118,16 @@ class DetailActivity : AppCompatActivity() {
             viewModel.detailMovie.observe(this, { detailMovie ->
                 if (detailMovie != null) {
                     when (detailMovie.status) {
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                        Status.LOADING -> binding?.progressBar?.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> if (detailMovie.data != null) {
-                            activityDetailBinding.progressBar.visibility =
+                            binding?.progressBar?.visibility =
                                 View.GONE
                             val state = detailMovie.data.bookmarked
-                            Log.d("DetailActivity", "MovieState $state")
                             setBookmarkState(state)
                         }
                         Status.ERROR -> {
-                            activityDetailBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             Toast.makeText(
                                 applicationContext,
                                 "Terjadi kesalahan",
@@ -171,17 +142,16 @@ class DetailActivity : AppCompatActivity() {
             viewModel.detailTvShow.observe(this, { detailTvShow ->
                 if (detailTvShow != null) {
                     when (detailTvShow.status) {
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                        Status.LOADING -> binding?.progressBar?.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> if (detailTvShow.data != null) {
-                            activityDetailBinding.progressBar.visibility =
+                            binding?.progressBar?.visibility =
                                 View.GONE
                             val state = detailTvShow.data.bookmarked
-                            Log.d("DetailActivity", "TvShowState $state")
                             setBookmarkState(state)
                         }
                         Status.ERROR -> {
-                            activityDetailBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             Toast.makeText(
                                 applicationContext,
                                 "Terjadi kesalahan",

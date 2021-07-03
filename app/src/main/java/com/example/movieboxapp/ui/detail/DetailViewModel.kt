@@ -15,18 +15,11 @@ class DetailViewModel(private val movieTvRepository: MovieTvRepository) : ViewMo
         const val TV_SHOW_TYPE = "TV_SHOW_TYPE"
     }
 
-    //    private var id: Int = 0
-    val detailId = MutableLiveData<Int>()
+    private val detailId = MutableLiveData<Int>()
 
     fun selectId(id: Int) {
         this.detailId.value = id
     }
-
-//    fun getDetailMovie(): LiveData<Resource<DetailEntity>>? = id?.let { movieTvRepository.getDetailMovie(id) }
-
-//    fun getDetailTvshow(): LiveData<Resource<DetailEntity>>? =
-//        id?.let { movieTvRepository.getDetailTvshow(it) }
-
     var detailMovie: LiveData<Resource<DetailEntity>> = Transformations.switchMap(detailId) {
         movieTvRepository.getDetailMovie(it)
     }
