@@ -7,3 +7,4 @@ Using :
 3. Repository
 4. Room Database
 5. Paging
+6. Resource Idling
